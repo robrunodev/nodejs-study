@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 const productModel = mongoose.model('Product');
 
 async function index(req, res) {
-    const products = await productModel.find();
+    // const products = await productModel.find();
+    const { page = 1, limit = 10 } = req.query;
+    const products = await productModel.paginate({}, {page: page, limit: limit});
     res.json(products);
 }
 
